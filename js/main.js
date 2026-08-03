@@ -1,8 +1,6 @@
 "use strict";
 
 (() => {
-  const galleryHideTimers = new WeakMap();
-
   // Fetch and display a random beginner photography tip.
   function initialisePhotographyTips() {
     const spinner = document.getElementById("tip-spinner");
@@ -83,39 +81,6 @@
     loadPhotographyTips();
   }
 
-  function showGalleryItem(item) {
-    const existingTimer = galleryHideTimers.get(item);
-
-    if (existingTimer) {
-      window.clearTimeout(existingTimer);
-    }
-
-    item.classList.remove("is-hidden");
-    item.classList.add("is-showing");
-
-    window.requestAnimationFrame(() => {
-      item.classList.remove("is-hiding");
-      item.classList.remove("is-showing");
-    });
-  }
-
-  function hideGalleryItem(item) {
-    const existingTimer = galleryHideTimers.get(item);
-
-    if (existingTimer) {
-      window.clearTimeout(existingTimer);
-    }
-
-    item.classList.add("is-hiding");
-    const timer = window.setTimeout(() => {
-      item.classList.add("is-hidden");
-      item.classList.remove("is-hiding");
-      galleryHideTimers.delete(item);
-    }, 180);
-
-    galleryHideTimers.set(item, timer);
-  }
-
   // Filter gallery cards in place and keep button state accessible.
   function initialiseGalleryFilters() {
     const filterButtons = Array.from(document.querySelectorAll(".gallery-filter"));
@@ -124,14 +89,6 @@
     if (filterButtons.length === 0 || galleryItems.length === 0) {
       return;
     }
-
-    galleryItems.forEach((item) => {
-      const itemContainer = item.closest(".gallery-item-container");
-
-      if (itemContainer) {
-        itemContainer.classList.add("gallery-item-transition");
-      }
-    });
 
     filterButtons.forEach((button) => {
       button.addEventListener("click", () => {
@@ -146,12 +103,8 @@
         galleryItems.forEach((item) => {
           const shouldShow = selectedFilter === "all" || item.dataset.category === selectedFilter;
           const itemContainer = item.closest(".gallery-item-container") || item;
-
-          if (shouldShow) {
-            showGalleryItem(itemContainer);
-          } else {
-            hideGalleryItem(itemContainer);
-          }
+          itemContainer.classList.toggle("is-filtered-out", !shouldShow);
+          itemContainer.setAttribute("aria-hidden", String(!shouldShow));
         });
       });
     });
