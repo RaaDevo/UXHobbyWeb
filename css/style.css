@@ -60,7 +60,8 @@ a:hover { color: var(--navy); }
 .table caption { color: var(--muted); }
 
 .exposure-visual { background: linear-gradient(135deg, #edf4fb, #f4eff9); border: 1px solid var(--border); border-radius: 1rem; padding: 1.5rem; }
-.exposure-node { background: #fff; border: 2px solid var(--accent-color); border-radius: 50%; display: grid; font-weight: 700; height: 8rem; margin: auto; place-items: center; text-align: center; width: 8rem; }
+.exposure-node { background: #fff; border: 2px solid var(--accent-color); border-radius: 50%; box-sizing: border-box; display: grid; font-weight: 700; height: 9rem; line-height: 1.2; margin: auto; padding: .9rem; place-items: center; text-align: center; width: 9rem; }
+.exposure-node small { display: block; line-height: 1.15; max-width: 6.25rem; }
 
 .swatch-row { display: flex; gap: .45rem; }
 .swatch { border: 2px solid #fff; border-radius: 50%; box-shadow: 0 2px 7px rgba(11,31,58,.16); display: inline-block; height: 2.2rem; width: 2.2rem; }
