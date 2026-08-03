@@ -94,6 +94,8 @@
     const previewDescription = document.getElementById("harmony-preview-description");
     const sampleTitle = document.getElementById("harmony-sample-title");
     const sampleDescription = document.getElementById("harmony-sample-description");
+    const sampleImage = document.getElementById("harmony-sample-image");
+    const colourValues = Array.from(harmonySection.querySelectorAll(".harmony-colour-value"));
     const resetButton = document.getElementById("reset-harmony");
 
     if (
@@ -102,6 +104,8 @@
       || !previewDescription
       || !sampleTitle
       || !sampleDescription
+      || !sampleImage
+      || colourValues.length !== 3
       || !resetButton
     ) {
       return;
@@ -112,6 +116,7 @@
         name: "Complementary",
         colours: ["#245995", "#F2A93B", "#FFF4DF"],
         surface: "#FFF8EB",
+        tertiaryText: "#0B1F3A",
         description: "Blue and orange create strong contrast, helping a warm subject stand out clearly against a cooler background.",
         sampleTitle: "Contrast that directs attention",
         sampleDescription: "Use one colour as the main atmosphere and its opposite as a smaller focal accent.",
@@ -120,6 +125,7 @@
         name: "Analogous",
         colours: ["#245995", "#4A89B8", "#76B5C5"],
         surface: "#EDF7F9",
+        tertiaryText: "#0B1F3A",
         description: "Neighbouring blues create a calm, connected palette that works well for landscapes, interiors and reflective scenes.",
         sampleTitle: "A calm family of colours",
         sampleDescription: "Let related hues fill most of the frame, then use brightness to separate the subject.",
@@ -128,6 +134,7 @@
         name: "Monochromatic",
         colours: ["#76539B", "#9F84BD", "#D4C4E8"],
         surface: "#F2ECF8",
+        tertiaryText: "#0B1F3A",
         description: "Variations of one purple hue create a focused visual identity. Changes in brightness keep the subject separate while the palette stays calm and cohesive.",
         sampleTitle: "Focused shades of purple",
         sampleDescription: "Use light and dark versions of one hue to simplify the frame while preserving depth.",
@@ -136,6 +143,7 @@
         name: "Triadic",
         colours: ["#C83A2D", "#F0B82F", "#245995"],
         surface: "#FFF6E3",
+        tertiaryText: "#FFFFFF",
         description: "Red, yellow and blue create an energetic balance that can suit lively street scenes, markets and event photography.",
         sampleTitle: "Energy held in balance",
         sampleDescription: "Choose one dominant colour and use the other two more sparingly so the frame stays readable.",
@@ -152,6 +160,7 @@
       harmonySection.style.setProperty("--harmony-primary", selectedPalette.colours[0]);
       harmonySection.style.setProperty("--harmony-secondary", selectedPalette.colours[1]);
       harmonySection.style.setProperty("--harmony-tertiary", selectedPalette.colours[2]);
+      harmonySection.style.setProperty("--harmony-tertiary-text", selectedPalette.tertiaryText);
       harmonySection.style.setProperty("--harmony-text", "#0b1f3a");
       harmonySection.style.setProperty("--harmony-surface", selectedPalette.surface);
 
@@ -170,6 +179,11 @@
       previewDescription.textContent = selectedPalette.description;
       sampleTitle.textContent = selectedPalette.sampleTitle;
       sampleDescription.textContent = selectedPalette.sampleDescription;
+      sampleImage.alt = `Desk lamp against an interior wall tinted to demonstrate a ${selectedPalette.name.toLowerCase()} colour harmony`;
+
+      colourValues.forEach((colourValue, index) => {
+        colourValue.textContent = selectedPalette.colours[index];
+      });
     }
 
     harmonyCards.forEach((card) => {
@@ -304,38 +318,74 @@
     function createEventCard(eventItem) {
       const column = document.createElement("div");
       const card = document.createElement("article");
+      const cardLayout = document.createElement("div");
+      const datePanel = document.createElement("div");
+      const dateIcon = document.createElement("i");
+      const dateDay = document.createElement("span");
+      const dateMonth = document.createElement("span");
+      const dateYear = document.createElement("span");
       const cardBody = document.createElement("div");
       const typeBadge = document.createElement("span");
+      const typeIcon = document.createElement("i");
+      const typeText = document.createElement("span");
       const title = document.createElement("h3");
       const metaList = document.createElement("ul");
-      const dateItem = document.createElement("li");
       const timeItem = document.createElement("li");
       const locationItem = document.createElement("li");
       const description = document.createElement("p");
       const detailsButton = document.createElement("button");
+      const detailsIcon = document.createElement("i");
+      const parsedEventDate = parseLocalDate(eventItem.date);
+      const monthFormatter = new Intl.DateTimeFormat("en-SG", { month: "short" });
 
       column.className = "col-md-6 col-xl-4";
-      card.className = "card event-card h-100";
+      card.className = "card event-card card-accent-navy h-100";
+      cardLayout.className = "event-card-layout";
+      datePanel.className = "event-date-panel";
+      dateIcon.className = "bi bi-calendar-event mb-2";
+      dateIcon.setAttribute("aria-hidden", "true");
+      dateDay.className = "event-date-day";
+      dateMonth.className = "event-date-month";
+      dateYear.className = "event-date-year";
       cardBody.className = "card-body p-4";
       typeBadge.className = "event-type-badge align-self-start mb-3";
+      typeIcon.className = "bi bi-camera me-2";
+      typeIcon.setAttribute("aria-hidden", "true");
       title.className = "h4";
       metaList.className = "event-meta mb-3";
       description.className = "mb-4";
       detailsButton.className = "btn btn-outline-primary";
       detailsButton.type = "button";
+      detailsIcon.className = "bi bi-arrow-right-circle me-2";
+      detailsIcon.setAttribute("aria-hidden", "true");
 
-      typeBadge.textContent = eventItem.type;
+      dateDay.textContent = String(parsedEventDate.getDate()).padStart(2, "0");
+      dateMonth.textContent = monthFormatter.format(parsedEventDate);
+      dateYear.textContent = String(parsedEventDate.getFullYear());
+      typeText.textContent = eventItem.type;
       title.textContent = eventItem.title;
-      dateItem.textContent = `Date: ${formatEventDate(eventItem)}`;
-      timeItem.textContent = `Time: ${eventItem.time}`;
-      locationItem.textContent = `Location: ${eventItem.location}`;
       description.textContent = eventItem.description;
-      detailsButton.textContent = "View Details";
+
+      function addMetaContent(listItem, iconName, label, value) {
+        const icon = document.createElement("i");
+        const text = document.createElement("span");
+        icon.className = `bi ${iconName}`;
+        icon.setAttribute("aria-hidden", "true");
+        text.textContent = `${label}: ${value}`;
+        listItem.append(icon, text);
+      }
+
+      addMetaContent(timeItem, "bi-clock", "Time", eventItem.time);
+      addMetaContent(locationItem, "bi-geo-alt", "Location", eventItem.location);
       detailsButton.addEventListener("click", () => openEventModal(eventItem));
 
-      metaList.append(dateItem, timeItem, locationItem);
+      datePanel.append(dateIcon, dateDay, dateMonth, dateYear);
+      typeBadge.append(typeIcon, typeText);
+      detailsButton.append(detailsIcon, document.createTextNode("View Details"));
+      metaList.append(timeItem, locationItem);
       cardBody.append(typeBadge, title, metaList, description, detailsButton);
-      card.append(cardBody);
+      cardLayout.append(datePanel, cardBody);
+      card.append(cardLayout);
       column.append(card);
       return column;
     }
@@ -449,6 +499,136 @@
     });
   }
 
+  // Add consistent visual labels to existing learning cards without changing their content.
+  function initialiseCardVisualSystem() {
+    const sections = Array.from(document.querySelectorAll("main section"));
+    const findSection = (headingText) => sections.find(
+      (section) => section.querySelector("h2")?.textContent.trim() === headingText,
+    );
+
+    function decorateCard(card, iconName, accentClass, badgeClass) {
+      const heading = card.querySelector("h3");
+
+      if (!heading || heading.parentElement.querySelector(".card-heading-row")) {
+        return;
+      }
+
+      const headingRow = document.createElement("div");
+      const iconBadge = document.createElement("span");
+      const icon = document.createElement("i");
+      headingRow.className = "card-heading-row";
+      iconBadge.className = `icon-badge ${badgeClass}`;
+      icon.className = `bi ${iconName}`;
+      icon.setAttribute("aria-hidden", "true");
+      iconBadge.append(icon);
+      heading.before(headingRow);
+      headingRow.append(iconBadge, heading);
+      card.classList.add("content-card", accentClass, "technique-card");
+    }
+
+    const compositionSection = document.getElementById("composition-techniques");
+    const compositionIcons = {
+      "Rule of thirds": "bi-grid-3x3",
+      "Leading lines": "bi-arrow-up-right",
+      Framing: "bi-bounding-box",
+      Symmetry: "bi-symmetry-vertical",
+      "Negative space": "bi-square",
+      "Depth and layering": "bi-layers",
+      "Patterns and repetition": "bi-grid",
+      "Perspective and angle": "bi-eye",
+    };
+
+    if (compositionSection) {
+      compositionSection.querySelectorAll("article.card").forEach((card) => {
+        const title = card.querySelector("h3")?.textContent.trim();
+        if (compositionIcons[title]) {
+          decorateCard(card, compositionIcons[title], "card-accent-purple", "icon-badge-blue");
+        }
+      });
+    }
+
+    const lightingIcons = {
+      "Natural light": ["bi-sun", "lighting-natural", "icon-badge-teal"],
+      "Golden hour": ["bi-sunset", "lighting-golden", "icon-badge-orange"],
+      "Blue hour": ["bi-moon-stars", "lighting-blue", "icon-badge-blue"],
+      "Harsh midday light": ["bi-brightness-high", "lighting-midday", "icon-badge-orange"],
+      "Soft light": ["bi-cloud-sun", "lighting-soft", "icon-badge-purple"],
+      "Hard light": ["bi-lightning", "lighting-hard", "icon-badge-navy"],
+      "Front lighting": ["bi-lightbulb", "lighting-front", "icon-badge-blue"],
+      "Side lighting": ["bi-circle-half", "lighting-side", "icon-badge-purple"],
+      Backlighting: ["bi-sunrise", "lighting-back", "icon-badge-orange"],
+    };
+
+    [findSection("Read the light before you press the shutter"), findSection("Front, side, and backlighting")]
+      .filter(Boolean)
+      .forEach((section) => {
+        section.querySelectorAll(".card").forEach((card) => {
+          const title = card.querySelector("h3")?.textContent.trim();
+          const settings = lightingIcons[title];
+          if (settings) {
+            decorateCard(card, settings[0], settings[1], settings[2]);
+          }
+        });
+      });
+
+    const colourBasicsSection = findSection("Describe what you see");
+    if (colourBasicsSection) {
+      const accents = ["card-accent-purple", "card-accent-blue", "card-accent-teal"];
+      colourBasicsSection.querySelectorAll(".card").forEach((card, index) => {
+        card.classList.add("content-card", accents[index % accents.length]);
+      });
+    }
+
+    const practiceSection = document.getElementById("practice-title")?.closest("section");
+    if (practiceSection) {
+      const accents = ["card-accent-purple", "card-accent-blue", "card-accent-teal", "card-accent-orange", "card-accent-navy"];
+      practiceSection.querySelectorAll(".card").forEach((card, index) => {
+        card.classList.add("content-card", accents[index % accents.length]);
+      });
+    }
+
+    const mistakesAccordion = document.getElementById("mistakesAccordion");
+    if (mistakesAccordion) {
+      mistakesAccordion.classList.add("mistakes-accordion");
+      mistakesAccordion.querySelectorAll(".accordion-item").forEach((item, index) => {
+        const button = item.querySelector(".accordion-button");
+        const body = item.querySelector(".accordion-body");
+
+        if (!button || !body) {
+          return;
+        }
+
+        const originalTitle = button.textContent.trim();
+        const warningIcon = document.createElement("i");
+        const titleGroup = document.createElement("span");
+        const numberLabel = document.createElement("span");
+        const title = document.createElement("span");
+        warningIcon.className = "bi bi-exclamation-triangle";
+        warningIcon.setAttribute("aria-hidden", "true");
+        numberLabel.className = "mistake-number";
+        title.className = "mistake-title";
+        numberLabel.textContent = `Common mistake ${String(index + 1).padStart(2, "0")}`;
+        title.textContent = originalTitle;
+        titleGroup.append(numberLabel, title);
+        button.replaceChildren(warningIcon, titleGroup);
+
+        const bodyText = body.textContent.trim();
+        const sentenceBreak = bodyText.indexOf(".");
+        const problemText = sentenceBreak >= 0 ? bodyText.slice(0, sentenceBreak + 1) : bodyText;
+        const solutionText = sentenceBreak >= 0 ? bodyText.slice(sentenceBreak + 1).trim() : bodyText;
+        const improvementBox = document.createElement("div");
+        const improvementHeading = document.createElement("strong");
+        const checkIcon = document.createElement("i");
+        improvementBox.className = "improvement-box";
+        checkIcon.className = "bi bi-check-circle me-2";
+        checkIcon.setAttribute("aria-hidden", "true");
+        improvementHeading.append(checkIcon, document.createTextNode("How to improve it"));
+        improvementBox.append(improvementHeading, document.createTextNode(solutionText));
+        body.replaceChildren(document.createTextNode(problemText), improvementBox);
+      });
+    }
+  }
+
   // Reveal supporting images as they approach the viewport.
   function initialiseImageReveals() {
     const revealImages = Array.from(document.querySelectorAll(".reveal-image"));
@@ -488,6 +668,7 @@
     initialiseColourHarmonyPreview();
     initialisePhotographyEvents();
     initialiseGalleryFilters();
+    initialiseCardVisualSystem();
     initialiseImageReveals();
   });
 })();
