@@ -84,9 +84,31 @@ a:hover { color: var(--navy); }
 .response-summary dt { color: var(--navy); }
 .response-summary dd { border-bottom: 1px solid var(--border); padding-bottom: .8rem; }
 
+.tip-card { border-left: .4rem solid var(--accent-color); }
+.tip-loading { align-items: center; display: flex; justify-content: center; min-height: 10rem; }
+.tip-category { background: rgba(159,132,189,.2); border-radius: 999px; color: var(--navy); display: inline-block; font-size: .8rem; font-weight: 700; letter-spacing: .08em; padding: .35rem .8rem; text-transform: uppercase; }
+.tip-error { border: 1px solid rgba(29,78,137,.2); border-radius: .75rem; }
+
+.gallery-filters { display: flex; flex-wrap: wrap; gap: .65rem; justify-content: center; }
+.gallery-filter { background: #fff; border: 1px solid var(--blue); border-radius: 999px; color: var(--blue); font-weight: 700; padding: .55rem 1rem; transition: background-color .2s ease, border-color .2s ease, color .2s ease, transform .2s ease; }
+.gallery-filter:hover, .gallery-filter:focus, .gallery-filter.is-active { background: var(--accent-color); border-color: var(--accent-color); color: var(--navy); }
+.gallery-filter:focus-visible { outline: 3px solid rgba(159,132,189,.5); outline-offset: 3px; }
+.gallery-item-transition { opacity: 1; transform: translateY(0); transition: opacity .18s ease, transform .18s ease; }
+.gallery-item-transition.is-hiding, .gallery-item-transition.is-showing { opacity: 0; transform: translateY(.6rem); }
+.gallery-item-transition.is-hidden { display: none; }
+
+.reveal-image { opacity: 1; transform: translateY(0); transition: opacity .55s ease, transform .55s ease; }
+.reveal-image.reveal-pending { opacity: 0; transform: translateY(1rem); }
+.reveal-image.is-visible { opacity: 1; transform: translateY(0); }
+
 .site-footer { background: var(--navy); color: #fff; margin-top: 3rem; padding: 2rem 0; }
 .site-footer a { color: #fff; margin-right: 1rem; text-decoration: none; }
 .site-footer a:hover, .site-footer a:focus { color: var(--accent-color); }
 
 a:focus-visible, button:focus-visible { outline: 3px solid #d8c8ea; outline-offset: 3px; }
 @media (max-width: 767px) { .hero-section { padding: 3.5rem 0; } .hero-image { min-height: 14rem; } .site-footer .text-md-end { text-align: left !important; } .comparison-image { height: 15rem; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-item-transition, .gallery-filter, .reveal-image { transition: none; }
+  .reveal-image.reveal-pending { opacity: 1; transform: none; }
+}

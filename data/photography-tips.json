@@ -1,0 +1,62 @@
+[
+  {
+    "category": "Exposure",
+    "title": "Protect bright highlights",
+    "tip": "Check the brightest part of the scene and lower the exposure if important detail is becoming completely white."
+  },
+  {
+    "category": "Exposure",
+    "title": "Change one setting at a time",
+    "tip": "When learning manual controls, adjust aperture, shutter speed, or ISO individually so you can see exactly how each setting changes the photograph."
+  },
+  {
+    "category": "Composition",
+    "title": "Check the background",
+    "tip": "Before taking a photograph, look around the edges of the frame for distracting objects."
+  },
+  {
+    "category": "Composition",
+    "title": "Move before you zoom",
+    "tip": "Try stepping left, right, closer, or lower to improve the relationships between the subject and background before using digital zoom."
+  },
+  {
+    "category": "Lighting",
+    "title": "Turn the subject toward the light",
+    "tip": "For a simple portrait, position the subject near a window and slowly turn them until the light shapes the face clearly."
+  },
+  {
+    "category": "Lighting",
+    "title": "Use open shade at midday",
+    "tip": "Move a person into the shade of a building or tree to avoid harsh overhead shadows while keeping the light bright and even."
+  },
+  {
+    "category": "Colour",
+    "title": "Choose one dominant colour",
+    "tip": "A scene often feels more organised when one colour leads and other colours act as smaller supporting accents."
+  },
+  {
+    "category": "Colour",
+    "title": "Check white balance indoors",
+    "tip": "If an indoor photograph looks strongly orange, blue, or green, try a white-balance preset that matches the main light source."
+  },
+  {
+    "category": "Camera Stability",
+    "title": "Create a steady stance",
+    "tip": "Keep your elbows close to your body, hold the camera with both hands, and gently press the shutter instead of jabbing it."
+  },
+  {
+    "category": "Camera Stability",
+    "title": "Support slow exposures",
+    "tip": "When using a slow shutter speed, place the camera on a tripod or stable surface and use a short timer to reduce camera shake."
+  },
+  {
+    "category": "Portrait Photography",
+    "title": "Focus on the nearest eye",
+    "tip": "For a portrait with shallow depth of field, place the focus point on the eye closest to the camera."
+  },
+  {
+    "category": "Portrait Photography",
+    "title": "Give the subject direction",
+    "tip": "Ask the person to make a small action, such as looking toward the light or adjusting a sleeve, to create a more natural expression and pose."
+  }
+]
