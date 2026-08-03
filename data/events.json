@@ -1,0 +1,58 @@
+[
+  {
+    "title": "Weekend Composition Walk",
+    "date": "2026-07-18",
+    "time": "9:00 AM",
+    "location": "Fort Canning Park",
+    "type": "Photo Walk",
+    "description": "Practise leading lines, framing and negative space during a relaxed morning walk."
+  },
+  {
+    "title": "Golden Hour Photo Walk",
+    "date": "2026-08-22",
+    "time": "5:30 PM",
+    "location": "Marina Bay",
+    "type": "Photo Walk",
+    "description": "Practise lighting, composition and city photography during golden hour."
+  },
+  {
+    "title": "Manual Exposure Workshop",
+    "date": "2026-09-05",
+    "time": "2:00 PM",
+    "location": "Online",
+    "type": "Workshop",
+    "description": "Learn how aperture, shutter speed and ISO work together through beginner-friendly exercises."
+  },
+  {
+    "title": "One Subject, Four Ways Challenge",
+    "date": "2026-09-19",
+    "time": "9:00 AM",
+    "location": "Singapore Botanic Gardens",
+    "type": "Photography Challenge",
+    "description": "Photograph one subject using four different composition or lighting techniques."
+  },
+  {
+    "title": "Mobile Street Photography",
+    "date": "2026-10-03",
+    "time": "4:00 PM",
+    "location": "Kampong Glam",
+    "type": "Mobile Photography",
+    "description": "Use a smartphone to practise timing, observation and visual storytelling in public spaces."
+  },
+  {
+    "title": "Exhibition Composition Study",
+    "date": "2026-10-17",
+    "time": "11:00 AM",
+    "location": "Civic District",
+    "type": "Exhibition Visit",
+    "description": "Study how photographers use framing, colour and sequencing, then discuss the ideas as a group."
+  },
+  {
+    "title": "Beginner Editing Session",
+    "date": "2026-11-07",
+    "time": "2:00 PM",
+    "location": "Online",
+    "type": "Editing Session",
+    "description": "Explore simple crop, exposure and colour adjustments that strengthen a photograph without over-editing it."
+  }
+]

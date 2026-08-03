@@ -46,6 +46,61 @@
         </div>
       </div>
     </section>
+    <section id="events" class="container pb-5" aria-labelledby="events-title">
+      <div class="section-heading text-center">
+        <p class="eyebrow">Learn together</p>
+        <h2 id="events-title">Upcoming Photography Events</h2>
+        <p class="mx-auto" style="max-width: 48rem;">Discover beginner-friendly opportunities to practise photography, explore new techniques and meet other photography enthusiasts.</p>
+      </div>
+      <div class="event-filters mb-4" role="group" aria-label="Filter photography events">
+        <button type="button" class="event-filter is-active" data-event-filter="all" aria-pressed="true">All</button>
+        <button type="button" class="event-filter" data-event-filter="photo-walk" aria-pressed="false">Photo Walk</button>
+        <button type="button" class="event-filter" data-event-filter="workshop" aria-pressed="false">Workshop</button>
+        <button type="button" class="event-filter" data-event-filter="challenge" aria-pressed="false">Challenge</button>
+        <button type="button" class="event-filter" data-event-filter="other" aria-pressed="false">Other</button>
+      </div>
+      <div id="events-spinner" class="events-loading" role="status" aria-live="polite">
+        <div class="spinner-border text-accent" aria-hidden="true"></div>
+        <span class="visually-hidden">Loading photography events...</span>
+      </div>
+      <div id="events-error" class="alert alert-light events-message mb-4" role="alert" hidden>
+        Upcoming events could not be loaded. Please ensure the website is being run through a local web server.
+      </div>
+      <div id="events-empty" class="alert alert-light events-message mb-4" role="status" hidden>
+        No upcoming events are currently listed. Please check back soon.
+      </div>
+      <div id="events-grid" class="row g-4" aria-live="polite"></div>
+      <div class="text-center mt-4">
+        <button id="show-all-events" type="button" class="btn btn-outline-primary" aria-expanded="false" aria-controls="events-grid" hidden>Show All Events</button>
+      </div>
+      <p class="small text-muted text-center mt-4 mb-0">Frame &amp; Focus events are educational examples created for this student website.</p>
+    </section>
+
+    <div class="modal fade" id="eventDetailsModal" tabindex="-1" aria-labelledby="event-modal-title" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content event-modal-content">
+          <div class="modal-header">
+            <div>
+              <span id="event-modal-type" class="event-type-badge"></span>
+              <h2 id="event-modal-title" class="modal-title h4 mt-2"></h2>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <dl class="event-details mb-3">
+              <div><dt>Date</dt><dd id="event-modal-date"></dd></div>
+              <div><dt>Time</dt><dd id="event-modal-time"></dd></div>
+              <div><dt>Location</dt><dd id="event-modal-location"></dd></div>
+            </dl>
+            <p id="event-modal-description" class="mb-0"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Close</button>
+            <a class="btn btn-primary" href="showcase.html#challenge">Take Part in the Photography Challenge</a>
+          </div>
+        </div>
+      </div>
+    </div>
     <section class="container pb-5"><div class="row align-items-center g-4"><div class="col-lg-7"><div class="ratio ratio-16x9 shadow-sm rounded-4 overflow-hidden"><iframe src="https://www.youtube.com/embed/V7z7BAZdt2M" title="Beginner photography lesson about camera settings" allowfullscreen></iframe></div></div><div class="col-lg-5"><p class="eyebrow">Watch and learn</p><h2>See the settings working together</h2><p>As you watch, look for the trade-offs: a background becoming blurrier as aperture opens, movement freezing as shutter speed increases, and image noise rising at high ISO.</p><p class="small text-muted mb-0">Embedded educational YouTube video. Replace the URL later if you choose a different class resource.</p></div></div></section>
     <section class="container pb-5"><div class="section-heading"><p class="eyebrow">Keep learning</p><h2>Useful photography links</h2></div><div class="row g-3"><div class="col-md-4"><a class="btn btn-outline-primary w-100 py-3" href="https://www.nationalgeographic.com/photography/article/photography-tips" target="_blank" rel="noopener noreferrer">National Geographic tips</a></div><div class="col-md-4"><a class="btn btn-outline-primary w-100 py-3" href="https://www.adobe.com/creativecloud/photography/discover/photography-basics.html" target="_blank" rel="noopener noreferrer">Adobe photo basics</a></div><div class="col-md-4"><a class="btn btn-outline-primary w-100 py-3" href="https://www.canon-europe.com/get-inspired/tips-and-techniques/" target="_blank" rel="noopener noreferrer">Canon learning hub</a></div></div></section>
   </main>
