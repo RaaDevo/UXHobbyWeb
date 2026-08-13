@@ -663,6 +663,96 @@
     });
   }
 
+  // Provide consistent, accessible feedback for the challenge form across browsers.
+  function initialiseChallengeFormValidation() {
+    const form = document.getElementById("challenge-form");
+    const summary = document.getElementById("form-validation-summary");
+
+    if (!form || !summary) {
+      return;
+    }
+
+    const groups = [
+      { controls: [document.getElementById("name")], errorId: "name-error" },
+      { controls: [document.getElementById("email")], errorId: "email-error" },
+      { controls: Array.from(form.elements.experience || []), errorId: "experience-error" },
+      { controls: [document.getElementById("genre")], errorId: "genre-error" },
+      { controls: [document.getElementById("technique")], errorId: "technique-error" },
+      { controls: Array.from(form.elements.equipment || []), errorId: "equipment-error" },
+      { controls: [document.getElementById("plan")], errorId: "plan-error" },
+      { controls: [document.getElementById("consent")], errorId: "consent-error" },
+    ];
+
+    if (groups.some((group) => group.controls.length === 0 || group.controls.some((control) => !control))) {
+      return;
+    }
+
+    let validationAttempted = false;
+
+    function updateCustomConstraints() {
+      [form.elements.name, form.elements.plan].forEach((control) => {
+        control.setCustomValidity(control.value.trim() === "" ? "This field is required." : "");
+      });
+    }
+
+    function groupIsValid(group) {
+      if (group.controls[0].type === "radio") {
+        return group.controls.some((control) => control.checked);
+      }
+
+      return group.controls[0].validity.valid;
+    }
+
+    function displayValidationState() {
+      updateCustomConstraints();
+      let firstInvalidControl = null;
+
+      groups.forEach((group) => {
+        const isValid = groupIsValid(group);
+        const error = document.getElementById(group.errorId);
+
+        group.controls.forEach((control) => {
+          control.classList.toggle("is-invalid", !isValid);
+          control.setAttribute("aria-invalid", String(!isValid));
+        });
+
+        if (error) {
+          error.hidden = isValid;
+        }
+
+        if (!isValid && !firstInvalidControl) {
+          firstInvalidControl = group.controls[0];
+        }
+      });
+
+      summary.hidden = firstInvalidControl === null;
+      return firstInvalidControl;
+    }
+
+    form.addEventListener("submit", (event) => {
+      validationAttempted = true;
+      const firstInvalidControl = displayValidationState();
+
+      if (firstInvalidControl) {
+        event.preventDefault();
+        event.stopPropagation();
+        firstInvalidControl.focus();
+      }
+    });
+
+    form.addEventListener("input", () => {
+      if (validationAttempted) {
+        displayValidationState();
+      }
+    });
+
+    form.addEventListener("change", () => {
+      if (validationAttempted) {
+        displayValidationState();
+      }
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     initialisePhotographyTips();
     initialiseColourHarmonyPreview();
@@ -670,5 +760,6 @@
     initialiseGalleryFilters();
     initialiseCardVisualSystem();
     initialiseImageReveals();
+    initialiseChallengeFormValidation();
   });
 })();
